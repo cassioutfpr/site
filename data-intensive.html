@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cássio Morales</title>
+  <style>
+    body {
+      background: #07080A;
+      color: #EADBB3;
+      font-family: "VT323", monospace;
+      margin: 0;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      color: #EADBB3;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .terminal {
+      max-width: 100%;
+      min-height: calc(100vh - 80px);
+      max-height: calc(100vh - 80px);
+      margin: auto;
+      background: rgba(30, 37, 46, 0.95);
+      border: 1px solid #EADBB3;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #EADBB3;
+      overflow-y: scroll;
+    }
+
+    .line::after {
+      content: "_";
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
+    }
+
+    a {
+      color: #14EED0;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #14EED0;
+      text-decoration: underline;
+    }
+
+    ul {
+      margin-top: 2px !important;
+    }
+
+    h3 {
+      margin-bottom: 10px !important;
+    }
+
+
+
+
+.post pre {
+background: rgba(234, 219, 179, 0.05);
+padding: 10px;
+border-left: 2px solid #EADBB3;
+white-space: pre-wrap;
+}
+  </style>
+</head>
+<body>
+  <canvas class="matrix"></canvas>
+
+  <div class="terminal">
+    <h1 class="line">Cássio Morales</h1>
+    <a target="_blank" href="https://github.com/cassioutfpr">[Github]</a>
+    <a target="_blank" href="mailto:cassioutfpr@gmail.com">[Email]</a>
+
+    <br>
+      <section>
+    <h3>Education</h2>
+    <ul>    
+    <li>IT Infrastructure Architecture & Management Specialist  (Federal University of Technology – Paraná)(2027)</li>
+    <li>Computer Engineer (Federal University of Technology – Paraná)(Ohio University)(2021)</li>
+    </ul>
+  </section>
+      <section>
+    <h3>Publications</h2>
+    <ul>
+      <li>MORALES, Cássio H. G.; AGNER, Luiz R. N.; LUZ, Mariana G.; KOZIEVITCH, Nádia P.; GADDA, Tatiana M. C.. Safetrip: Suggested Itineraries to Reduce Accident Risk Factors. In: CONCURSO DE TRABALHOS DE CONCLUSÃO DE CURSO EM SISTEMAS DE INFORMAÇÃO - SIMPÓSIO BRASILEIRO DE SISTEMAS DE INFORMAÇÃO (SBSI), 18. , 2022, Curitiba/PR. Anais [...]. Porto Alegre: Sociedade Brasileira de Computação, 2022 . p. 177-186. DOI: <a target="_blank" href="https://doi.org/10.5753/sbsi_estendido.2022.222652">[https://doi.org/10.5753/sbsi_estendido.2022.222652]</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Professional Experience</h2>
+    <ul>
+      <li>IoTag Tecnologia Ltda (Dec 2020 – Present) — Full Stack Developer/Tech Lead</li>
+      <li>Robert Bosch GmbH (Jan 2019 – Dec 2020) — Embedded Linux Developer</li>
+    </ul>
+  </section>
+
+    <section>
+    <h3>Passions</h2>
+    <ul>
+      <li>Corinthians</li>
+      <li>The Lord of The Rings</li>
+    </ul>
+  </section>
+
+  <!-- Seção Blog -->
+<div class="blog">
+  <h3>From My Bookshelf: Summaries & Lessons</h3>
+  <ul>
+  <li><a href="#post1">[2025-09-14] Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems by Martin Kleppmann </a></li>
+  </ul>
+</div>
+  </div>
+
+
+  <script>
+    const canvas = document.querySelector('.matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウヴクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const matrix = letters.split('');
+
+    const font_size = 14;
+    const columns = canvas.width / font_size;
+
+    const drops = [];
+    for(let x = 0; x < columns; x++) drops[x] = 1;
+
+    function draw() {
+      ctx.fillStyle = 'rgba(10, 17, 26, 0.15)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#EADBB3';
+      ctx.font = font_size + 'px monospace';
+
+      for(let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+        if(drops[i] * font_size > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 33);
+  </script>
+</body>
+</html>
